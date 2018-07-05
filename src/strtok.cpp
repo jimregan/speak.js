@@ -93,6 +93,7 @@ cont:
 	/* NOTREACHED */
 }
 
+#if 0
 char * strtok_r(
 	register char *s _AND
 	register const char *delim _AND
@@ -100,6 +101,7 @@ char * strtok_r(
 {
 	return __strtok_r (s, delim, lasts, 1);
 }
+#endif
 
 /*
 FUNCTION
@@ -189,6 +191,7 @@ QUICKREF
 
 #ifndef _REENT_ONLY
 
+#if 0
 char *strtok(
 	register char *s _AND
 	register const char *delim)
@@ -196,6 +199,7 @@ char *strtok(
 	char *chr;
 	return __strtok_r (s, delim, &chr, 1);
 }
+#endif
 #endif
 
 } /* extern "C" */

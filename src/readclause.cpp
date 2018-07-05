@@ -234,6 +234,7 @@ static unsigned char walpha_tab[MAX_WALPHA-0xff] = {
       1,0xff,   1,0xff };    // 230
 
 // use ctype.h functions for Latin1 (character < 0x100)
+#if 0
 int iswalpha(wint_t c)
 {
 	if(c < 0x100)
@@ -315,8 +316,9 @@ int iswpunct(wint_t c)
 		return(ispunct(c));
 	return(0);
 }
+#endif
 
-const wchar_t *wcschr(const wchar_t *str, int c)
+const wchar_t *__wcschr(const wchar_t *str, int c)
 {
    while(*str != 0)
    {
@@ -329,7 +331,7 @@ const wchar_t *wcschr(const wchar_t *str, int c)
 
 #ifndef WINCE
 // wcslen() is provided by WINCE, but not the other wchar functions
-const int wcslen(const wchar_t *str)
+const int __wcslen(const wchar_t *str)
 {
 	int ix=0;
 
@@ -341,7 +343,7 @@ const int wcslen(const wchar_t *str)
 }
 #endif
 
-float wcstod(const wchar_t *str, wchar_t **tailptr)
+float __wcstod(const wchar_t *str, wchar_t **tailptr)
 {
    int ix;
    char buf[80];
@@ -1321,7 +1323,7 @@ static int attr_prosody_value(int param_type, const wchar_t *pw, int *value_out)
 		pw++;	
 		sign = -1;
 	}
-	value = (double)wcstod(pw,&tail);
+	value = (double)__wcstod(pw,&tail);
 	if(tail == pw)
 	{
 		// failed to find a number, return 100%
@@ -1370,7 +1372,7 @@ int AddNameData(const char *name, int wide)
 
 	if(wide)
 	{
-		len = (wcslen((const wchar_t *)name)+1)*sizeof(wchar_t);
+		len = (__wcslen((const wchar_t *)name)+1)*sizeof(wchar_t);
 		n_namedata = (n_namedata + sizeof(wchar_t) - 1) % sizeof(wchar_t);  // round to wchar_t boundary
 	}
 	else
@@ -2530,7 +2532,7 @@ if(option_ssml) parag=1;
 			{
 				// option is set to explicitly speak punctuation characters
 				// if a list of allowed punctuation has been set up, check whether the character is in it
-				if((option_punctuation == 1) || (wcschr(option_punctlist,c1) != NULL))
+				if((option_punctuation == 1) || (__wcschr(option_punctlist,c1) != NULL))
 				{
 					tr->phonemes_repeat_count = 0;
 					if((terminator = AnnouncePunctuation(tr, c1, &c2, buf, &ix, is_end_clause)) >= 0)
