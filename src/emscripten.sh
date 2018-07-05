@@ -2,7 +2,7 @@
 # available at https://github.com/kripken/emscripten
 # (change the paths here to match where you set that up in your system).
 
-export EMSCRIPTEN=/home/alon/Dev/emscripten
+export EMSCRIPTEN=/home/jim/Playing/emsdk/emscripten/1.38.6
 
 echo "make"
 make distclean
